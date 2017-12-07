@@ -1,49 +1,37 @@
 <html>
 <head>
   <title>Registration</title>
-  <style>
-  div.container {
-      text-align: center;
-      width: 100%;
-      margin: 0px auto;
-      background: white;
-      border: 5px solid gray;
-  }
-  header, footer {
-      padding: 1em;
-      color: white;
-      background-color: black;
-      clear: left;
-      text-align: center;
-  }
-</style>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <div class = "container">
     <header>
       <h1>Register</h1>
     </header>
-    <table align=center>
-      <form method=post action="register.php">
-        <tr>
-          <td>First Name :
-          <td><input type="text" name="firstname">
-        <tr>
-          <td>Surname :
-          <td><input type="text" name="surname">
-        <tr>
-          <td>Email :
-          <td><input type="text" name="email">
-        <tr>
-          <td>Password :
-          <td><input type="password" name="password_1">
-        <tr>
-          <td>Confirm Password :
-          <td><input type="password" name="password_2">
-        <tr>
-          <td colspan="2" align=center>
-            <button type="submit" name="register">Register</button>
-        </table>
+      <form method="post"  action="register.php">
+        <div class="input-group">
+          <label>First Name </label>
+          <input type="text" name="firstname">
+        </div>
+        <div class="input-group">
+          <label>Surame </label>
+          <input type="text" name="surname">
+        </div>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="text" name="email">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" name="password_1">
+        </div>
+        <div class="input-group">
+          <label>Confirm Password</label>
+          <input type="password" name="password_2">
+        </div>
+        <div class="input-group">
+            <button type="submit" name="register" class="btn">Register</button>
+        </div>
     <footer><center>copyright information</center>
     </footer>
   </div>
