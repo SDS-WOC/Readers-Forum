@@ -40,6 +40,9 @@
         <tr>
           <td>Confirm Password :
           <td><input type="password" name="password_2">
+        <tr>
+          <td colspan="2" align=center>
+            <button type="submit" name="register">Register</button>
         </table>
     <footer><center>copyright information</center>
     </footer>
