@@ -1,3 +1,4 @@
+<?php include('server.php') ?>
 <html>
 <head>
   <title>Registration</title>
@@ -9,7 +10,8 @@
       <p align=left><a href="login.php">Back to Homepage</a></p>
       <h1>Register</h1>
     </header>
-      <form method="post"  action="register.php">
+      <form method="post" action="register.php">
+      <?php include('errors.php'); ?>
         <div class="input-group">
           <label>First Name : </label>
           <input type="text" name="firstname">
