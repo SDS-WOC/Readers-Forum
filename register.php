@@ -11,7 +11,9 @@
       <h1>Register</h1>
     </header>
       <form method="post" action="register.php">
+
       <?php include('errors.php'); ?>
+
         <div class="input-group">
           <label>First Name : </label>
           <input type="text" name="firstname">

@@ -1,7 +1,7 @@
 <?php
-
+   $password="";
    $errors = array();
-   $db = mysqli_connect('localhost', 'root', 'registration');
+   $db = mysqli_connect('localhost', 'root', '');
 
    if (isset($_POST['register']))
   {
@@ -21,15 +21,15 @@
       array_push($errors, "Email is required");
     }
     if(empty($password_1)){
-      array_push($errors, "Please specify a password");
+      array_push($errors, "Password is required");
     }
     if($password_1 != $password_2){
       array_push($errors, "Passwords do not match");
     }
 
     if (count($errors)==0)
-         $password = md5($password_1);
-        $sql = "INSERT INTO users (firstname, surname, email, password )
+         $password = password_hash($password_1, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO registration (firstname, surname, email, password )
                     VALUES($firstname, $surname, $email, $password)";
         mysqli_query($db, $sql);
 
