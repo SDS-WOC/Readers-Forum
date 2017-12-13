@@ -1,5 +1,5 @@
 <?php
-ob_start();
+
 
    session_start();
    $password="";
@@ -66,7 +66,7 @@ ob_start();
    }
    endif;
    if (count($errors)==0) :{
-        $password = password_hash($password_1, PASSWORD_DEFAULT);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $query = "SELECT * FROM registration WHERE email='$email' AND password='$password'";
         $result = mysqli_query($db, $query);
 
@@ -98,5 +98,5 @@ ob_start();
     }
     endif;
 
-ob_end_flush();
+
  ?>
