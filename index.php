@@ -1,4 +1,8 @@
-<?php include('server.php'); ?>
+<?php include('server.php');
+      include('errors.php');
+
+
+?>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -23,10 +27,9 @@
           </h3>
         </div>
 
-    <?php if (isset($_SESSION["email"])): ?>
         <p> Welcome <b><?php echo $_SESSION['firstname']; ?> </b></p>
-        <p><a href="index.php?logout?='1'">Logout</a></p>
-    <?php endif ?>
+        <p><a href="logout.php">Logout</a></p>
+
     <?php endif ?>
   </div>
     <div class="footer">

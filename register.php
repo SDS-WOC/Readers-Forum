@@ -1,47 +1,60 @@
-<?php include('server.php') ?>
-<html>
-<head>
-  <title>Registration</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <div class = "container">
-    <header>
-      <p align=left><a href="login.php">Back to Homepage</a></p>
-      <h1>Register</h1>
-    </header>
-      <form method="post" action="register.php">
+<?php
 
-      <?php include('errors.php'); ?>
+$errors = array();
+$firstname = "";
+$surname = "";
+$email = "";
 
-        <div class="input-group">
-          <label>First Name : </label>
-          <input type="text" name="firstname">
-        </div>
-        <div class="input-group">
-          <label>Surame : </label>
-          <input type="text" name="surname">
-        </div>
-        <div class="input-group">
-          <label>Email :</label>
-          <input type="text" name="email">
-        </div>
-        <div class="input-group">
-          <label>Password :</label>
-          <input type="password" name="password_1">
-        </div>
-        <div class="input-group">
-          <label>Confirm Password :</label>
-          <input type="password" name="password_2">
-        </div>
-        <div class="input-group">
-            <button type="submit" name="register" class="btn">Register</button>
-        </div>
-        <p>
-          Already a member? <a href="login.php">Sign in</a>
-      </form>
-    <footer><center>copyright information</center>
-    </footer>
-  </div>
-</body>
-</html>
+$firstname = ($_POST['firstname']);
+$surname = ($_POST['surname']);
+$email = ($_POST['email']);
+$password_1 = ($_POST['password_1']);
+$password_2 = ($_POST['password_2']);
+
+
+if(empty($firstname)) : {
+  array_push($errors, "First Name is required");
+}
+endif;
+if(empty($surname)):{
+  array_push($errors, "Surname is required");
+}
+endif;
+if(empty($email)):{
+  array_push($errors, "Email is required");
+}
+endif;
+if(empty($password_1)):{
+  array_push($errors, "Password is required");
+}
+endif;
+if($password_1 != $password_2):{
+  array_push($errors, "Passwords do not match");
+}
+endif;
+
+//$query = "SELECT * FROM registration WHERE email='$email'";
+//$result = mysqli_query($db, $query);
+
+//if(mysqli_num_rows($result) > 0):{
+//  array_push($errors, "User with this email already exists!");
+//}
+//endif;
+
+
+if (count($errors)==0) :{
+     $password = password_hash($password_1, PASSWORD_BCRYPT);
+    $sql = "INSERT INTO registration(firstname, surname, email, password )
+                VALUES('$firstname', '$surname','$email', '$password')";
+
+    mysqli_query($db, $sql);
+    $_SESSION['email'] = $email;
+    $_SESSION['firstname'] = $firstname;
+    $_SESSION['logged_in'] = true;
+    $_SESSION['success'] = "You are now logged in.";
+
+    header('location: index.php');
+  }
+  endif;
+
+   ?>
