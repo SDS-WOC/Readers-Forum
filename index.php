@@ -9,22 +9,24 @@
 
     <div class="header">
       <header>
-      <h1>Catalogue </h1>
+      <h1 align="left">Catalogue </h1>
       </header>
     </div>
 
     <div class="container">
-      <?php if (isset($_SESSION['SUCCESS'])): ?>
-        <div class="error success">
+      <?php if (isset($_SESSION['success'])): ?>
+        <div class="success">
           <h3>
             <?php echo $_SESSION['success'];
                   unset($_SESSION['success']);
               ?>
           </h3>
-    <?php endif ?>
+        </div>
+
     <?php if (isset($_SESSION["email"])): ?>
         <p> Welcome <b><?php echo $_SESSION['firstname']; ?> </b></p>
-        <a href="index.php?logout?='1'">Logout</a></p>
+        <p><a href="index.php?logout?='1'">Logout</a></p>
+    <?php endif ?>
     <?php endif ?>
   </div>
     <div class="footer">

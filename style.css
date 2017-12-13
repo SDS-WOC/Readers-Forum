@@ -48,11 +48,20 @@ form{
   border-radius: 5px;
 }
 .error{
-  margin-left: 75px;
+
   padding: 10;
   font-size: 15;
-  color: white;
-  background: red;
+  color: #a94442;
+  background: #f2dede;
   border: 1px solid red;
   border-radius: 5px;
+}
+.success{
+  padding: 10;
+  font-size: 15;
+  color: #a94442;
+  background: #f2dede;
+  border: 1px solid red;
+  border-radius: 5px;
+
 }

@@ -1,3 +1,4 @@
+<?php include('server.php'); ?>
 <html>
 <head>
 <style>
@@ -42,11 +43,12 @@ article {
 <nav>
   <h2> Login</h2>
   <form method="post" action="login.php">
+    <?php include('errors.php'); ?>
     <label>Email ID</label>
-      <input type ="text">
+      <input type ="text" name="email">
     <br><br>
       <label>Password</label>
-      <input type ="password">
+      <input type ="password" name="password">
     <br><br>
       <input type="submit" name="login">
   </form>
