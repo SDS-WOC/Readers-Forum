@@ -1,6 +1,8 @@
 <?php include('server.php');
       include('errors.php');
 
+$sql = "SELECT * FROM catalogue";
+$entry = $db ->query($sql);
 
 ?>
 <html lang="en">
@@ -8,6 +10,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js">
   </script>
@@ -31,10 +35,59 @@
       min-height:200px;
   }
 
-  @media (max-width: 600px) {
-    .carousel-caption {
-      display: none;
-    }
+
+    .panel {
+       border: 1px solid #f4511e;
+       border-radius:0 ;
+       transition: box-shadow 0.5s;
+       max-height: 540px;
+       min-height: 540px;
+   }
+   .panel:hover {
+       box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+   }
+   .panel-footer .btn:hover {
+
+       background-color: #f4511e;
+      color: #fff;
+   }
+   .panel-heading {
+       color: #fff ;
+       background-color: #f4511e ;
+       padding: 25px;
+       border-bottom: 1px solid transparent;
+       border-top-left-radius: 0px;
+       border-top-right-radius: 0px;
+       border-bottom-left-radius: 0px;
+       border-bottom-right-radius: 0px;
+   }
+   .panel-footer {
+       background-color: white ;
+   }
+   .panel-footer h3 {
+       font-size: 22px;
+   }
+   .panel-footer h4 {
+       color: #aaa;
+       font-size: 14px;
+
+   }
+   .panel-footer green {
+     color: green;
+     font-size: 12px;
+   }
+   .panel-footer red {   
+     color: red;
+     font-size: 12px;
+   }
+   .panel-footer .btn {
+
+       margin-top : 15px ;
+       border: 1px solid #f4511e;
+       background-color: #fff;
+       color: #f4511e;
+
+   }
   }
   </style>
 </head>
@@ -117,20 +170,34 @@
 </div>
 <div class="container text-center">
   <h3>Catalogue</h3><br>
+</div>
+
+  <?php while($book = mysqli_fetch_assoc($entry)) : ?>
+  <div class="container text-center">
+
   <div class="row">
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Book 1</p>
-    </div>
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Book 2</p>
-    </div>
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Book 3</p>
+    <div class="col-sm-3 col-xs-12">
+      <div class="panel panel-default text-center">
+
+        <div class="panel-body">
+          <center><img src="<?= $book['image'] ; ?>" class="img-responsive" width=80% alt="<?= $book['title']  ; ?>"></center>
+        </div>
+        <div class="panel-footer">
+          <h3><?= $book['title'] ?></h3>
+          <h4>by <?= $book['author'] ?></h4>
+          <?php if($book['availability']==1): ?>
+            <green><h5> Available!</h5></green>
+          <?php else : ?>
+            <red><h5> Not Available!</h5></red>
+          <?php endif ?>
+          <button class="btn btn-lg">Check it Out</button>
+        </div>
+      </div>
     </div>
 
+  <?php endwhile ;?>
+  </div>
+</div>
     <div class="footer">
       <footer><center>copyright information</center></footer>
 
