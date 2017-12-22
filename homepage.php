@@ -57,15 +57,15 @@
            </div>
 
            <div class="item">
-             <center><img src="images/screen_1.png" alt="Screen 2"></center>
+             <img src="images/screen_1.png" alt="Screen 2">
            </div>
 
            <div class="item">
-             <center><img src="images/screen_1.png" alt="Screen 3"></center>
+             <img src="images/screen_1.png" alt="Screen 3">
            </div>
          </div>
 
-         
+
        </div>
        </div>
 
