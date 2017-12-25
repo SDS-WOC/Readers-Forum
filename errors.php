@@ -11,7 +11,9 @@
   </script>
 </head>
 <body>
-<?php if (count($errors) > 0): ?>
+<?php
+
+if (count($errors) > 0): ?>
     <div class="alert alert-danger">
         <?php foreach ($errors as $error) : ?>
         <p align="left"><?php echo $error; ?> </p>

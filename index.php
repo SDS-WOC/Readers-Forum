@@ -1,8 +1,16 @@
-<?php include('server.php');
-      include('errors.php');
+<?php
+  include('server.php');
+  include('errors.php');
 
 $sql = "SELECT * FROM catalogue";
 $entry = $db ->query($sql);
+
+if ($_SESSION['logged_in'] = true) {
+
+  $firstname = $_SESSION['firstname'];
+  $surname = $_SESSION['surname'];
+  $email = $_SESSION['email'];
+}
 
 ?>
 <html lang="en">
@@ -18,6 +26,60 @@ $entry = $db ->query($sql);
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
   </script>
   <style>
+
+
+    .affix {
+        top: 0;
+        width: 100%;
+        z-index: 9999 !important;
+    }
+
+    .affix + .container-fluid {
+        padding-top: 70px;
+    }
+    .dropbtn {
+      background-color: rgba(100, 100, 100, 0);;
+      color: white;
+      padding-top: 14px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f9f9f9;
+      min-width: 240px;
+      padding: 20px;
+      line-height: 2;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 14px 8px;
+      text-decoration: none;
+
+    }
+
+    .dropdown-content a:hover {background-color: #f1f1f1}
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: rgba(100, 100, 100, 0);;
+    }
+
 
     .modal-dialog{
       width:80%;
@@ -39,21 +101,21 @@ $entry = $db ->query($sql);
       min-height:200px;
   }
 
+    .box{
+
+      border-left: 1px solid #4A235A;
+    }
 
     .panel {
        border: 1px solid #f4511e;
        border-radius:0 ;
        transition: box-shadow 0.5s;
-       max-height: 480px;
-       min-height: 480px;
+       max-height: 75vh;
+       min-height: 75vh;
    }
    .panel:hover {
+        cursor: pointer;
        box-shadow: 5px 0px 40px rgba(0,0,0, .2);
-   }
-   .panel-footer .btn:hover {
-
-       background-color: #f4511e;
-      color: #fff;
    }
    .panel-heading {
        color: #fff ;
@@ -66,6 +128,12 @@ $entry = $db ->query($sql);
        border-bottom-right-radius: 0px;
    }
    .panel-footer {
+
+       max-height: 19vh;
+       min-height: 19vh;
+       background-color: white ;
+   }
+   .panel-footer-bottom {
        background-color: white ;
    }
    .col-sm-3 a:hover{
@@ -79,26 +147,27 @@ $entry = $db ->query($sql);
        font-size: 14px;
 
    }
-   .panel-footer green {
+   .panel-footer-bottom green {
+     border-radius: 5px;
+     padding-left:5px;
+     padding-right: 5px;
+     padding-top: 5px;
+     padding-bottom: 5px;
+     border: 1px solid green;
      color: green;
-     font-size: 12px;
+     font-size: 14px;
    }
-   .panel-footer red {
+   .panel-footer-bottom red {
+     border-radius: 5px;
+     padding-left:5px;
+     padding-right: 5px;
+     padding-top: 5px;
+     padding-bottom: 5px;
+     border: 1px solid red;
      color: red;
-     font-size: 12px;
+     font-size: 14px;
    }
-   .panel-footer .btn {
 
-       margin-top : 15px ;
-       border: 1px solid #f4511e;
-       background-color: #fff;
-       color: #f4511e;
-
-   }
-   .box{
-     border-left: 1px solid #4A235A;
-     border-radius:0 ;
-   }
    .specs h3{
      color: #4A235A;
    }
@@ -109,8 +178,8 @@ $entry = $db ->query($sql);
      color: #1A5276;
    }
    .specs{
-     max-height: 400px;
-     min-height: 400px;
+     max-height: 430px;
+     min-height: 430px;
    }
    .img-footer{
      line-height: 1.5;
@@ -134,46 +203,61 @@ $entry = $db ->query($sql);
      color: red;
      font-size: 16px;
    }
+   .close{
+     color:blue;
+   }
+   .rent{
 
+     text-align: left;
+     font-size: 16px;
+     color:#CD5C5C ;
+   }
+   .rent info{
+     font-size: 12px;
+     color: #5D6D7E;
+   }
+   .rent .btn {
+       margin-top : 15px ;
+       border: 1px solid #f4511e;
+       background-color: #fff;
+       color: #f4511e;
+   }
+   .rent .btn:hover {
+       background-color: #f4511e;
+      color: #fff;
+   }
+   .comments-footer{
+     border: 2px solid #1A5276;
+     max-height: 150px;
+     min-height: 150px;
+   }
+   .nav{
+     margin-left: 0;
+   }
   </style>
 </head>
 <body>
-
-    <div class="container">
-      <?php if (isset($_SESSION['success'])): ?>
-        <div class="success">
-          <h3>
-            <?php echo $_SESSION['success'];
-                  unset($_SESSION['success']);
-              ?>
-          </h3>
-        </div>
-
-        <p> Welcome <b><?php echo $_SESSION['firstname']; ?> </b></p>
-        <p><a href="logout.php">Logout</a></p>
-
-    <?php endif ?>
-  </div>
-  <nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Catalogue</a></li>
-        <li><a href="#">Borrow</a></li>
-        <li><a href="#">Share</a></li>
-        <li><a href="#">My Profile</a></li>
+        <li class="active"><a href="index.php">Catalogue</a></li>
+        <li><a href="#">My Books</a></li>
+        <li><a href="#">Share a book</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-      </ul>
+
+            <div class="dropdown" style="float:right;">
+              <font color="white" >Hey
+              <button class="dropbtn"><b><?php echo $firstname; ?></font></button>
+              <div class="dropdown-content">
+                <?php echo $firstname."&nbsp;".$surname; ?>
+                <br>
+                <?php echo $email; ?>
+                <br><br>
+              <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+
+              </div>
+            </div>
     </div>
   </div>
 </nav>
@@ -217,13 +301,11 @@ $entry = $db ->query($sql);
 <div class="container text-center">
   <h3>Catalogue</h3><br>
 </div>
-
   <?php while($book = mysqli_fetch_assoc($entry)) {
-    $id = $book['id'];?>
-  <div class="container text-center">
-
-  <div class="row">
-    <div class="col-sm-3 col-xs-12">
+      $id = $book['id'];?>
+        <div class="container text-center">
+      <div class="row">
+      <div class="col-sm-3 row-xs-12">
       <a data-toggle="modal" data-target="#book-<?= $id ; ?>">
       <div class="panel panel-default text-center">
 
@@ -233,34 +315,32 @@ $entry = $db ->query($sql);
         <div class="panel-footer">
           <h3><?= $book['title'] ?></h3>
           <h4>by <?= $book['author'] ?></h4>
-          <?php if($book['availability']==1): ?>
-            <green><h5> Available!</h5></green>
-          <?php else : ?>
-            <red><h5> Not Available!</h5></red>
-          <?php endif ?>
         </div>
+          <div class="panel-footer-bottom">
+          <?php if($book['availability']==1): ?>
+          <green> Available! </green>
+          <?php else : ?>
+          <red> Not Available!</red>
+        <?php endif; ?>
+          </div>
       </div>
     </div>
   </a>
-  <?php
-  $sql1 = "SELECT * FROM catalogue WHERE `id` = '$id'";
-  $entry1 = $db ->query($sql1);
-  $book1 = mysqli_fetch_assoc($entry1) ;
-  ?>
-    <div class="modal fade" id="book-<?= $book1['id']; ?>" role="dialog">
+
+    <div class="modal fade" id="book-<?= $book['id']; ?>" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
               <div class="specs">
                 <div class="col-sm-3">
-
-                  <img src="<?= $book1['image']; ?>" alt="<?= $book1['title']; ?>" class="details img-responsive">
+                  <br>
+                  <img src="<?= $book['image']; ?>" alt="<?= $book['title']; ?>" class="details img-responsive">
                   <br>
                   <div class="img-footer">
                     Avg Rating :
                     <br>
                     Availability : &nbsp;
-                    <?php if($book1['availability']==1): ?>
+                    <?php if($book['availability']==1): ?>
                       <green>Available</green>
                     <?php else : ?>
                       <red>Not Available</red>
@@ -269,35 +349,68 @@ $entry = $db ->query($sql);
                 </div>
           <div class="col-sm-9">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h1 align=left><?= $book1['title'] ?></h1>
-            <h4 align=left>by <?= $book1['author'] ?></h4>
+            <h1 align=left><?= $book['title'] ?></h1>
+            <h4 align=left>by <?= $book['author'] ?></h4>
             <hr>
-            <div class="col-sm-3 container-fluid">
+
+          <div class="col-sm-6 row-sm-4 rent">
+            <ul class="nav nav-pills">
+              <li class="active"><a data-toggle="pill" href="#<?= $id;?>menu1">Book Description</a></li>
+              <li><a data-toggle="pill" href="#<?= $id;?>menu2">About the Author</a></li>
+            </ul>
+            <br>
+            <info>
+              Paperback, <?= $book['pages']; ?> pages<br>
+              Published <?= $book['date_published']; ?><br>
+              Added <?= $book['date_added']; ?>
+            </info>
+            <br><br>
+            <p>Rent this book at a bottom-touching rent of <b><font text=18 style=bold >Rs 20</font></b> for a week!
+            </p>
+            <button class="btn">Rent it!</button>
+          </div>
+          <div class="box col-sm-6">
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="<?= $id;?>menu1">
+                <h3 align=left>Book Description</h3>
+                <p align=left><?= $book['description']; ?>
             </div>
-            <div class="col-sm-9 box">
-                <h3 align=left>Book Description</h4>
-                <p align=left><?= $book1['description'] ?>
-              </div>
+
+                <?php
+
+                $sql1 = "SELECT * FROM author WHERE name='".$book['author']."' ";
+                $entry1 = $db ->query($sql1);
+                $author = mysqli_fetch_assoc($entry1);
+                ?>
+
+            <div class="tab-pane fade" id="<?= $id;?>menu2">
+                <h3 align=left>About the Author</h4>
+                <p align=left><?= $author['description']; ?>
+            </div>
+          </div>
+        </div>
             </div>
               </div>
               <div class="comments">
                 <hr>
                 <h3 align=left>Comments</h3>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor nec sapien ut suscipit. Praesent porttitor risus dolor. Nullam dignissim magna dui, vel posuere libero bibendum ac. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse at tortor vel magna tristique porttitor eget eget diam. Proin nec ullamcorper lorem, id ullamcorper mauris. Pellentesque tempor orci id luctus pellentesque. Proin placerat fermentum elit, id mattis nulla fringilla in. Sed ut turpis felis.</p>
-    <p>Duis gravida ligula eu cursus blandit. Praesent interdum odio erat, ac pretium dui finibus eget. Etiam quis tortor ligula. Morbi suscipit dui est, eu suscipit lorem convallis nec. Aliquam molestie mauris luctus, consequat turpis sed, vehicula tellus. Aliquam dignissim neque tortor, in tempor metus volutpat et. Vestibulum ac libero non velit tempor interdum. Sed nec mi sit amet odio blandit ultricies non a metus. Nulla eleifend porta purus. Nullam aliquet orci ac dolor elementum porttitor. Aliquam risus massa, malesuada id urna sed, hendrerit commodo mauris. Donec commodo gravida leo quis condimentum. Duis tempor dictum leo, vitae faucibus augue feugiat ac. Nulla vel justo maximus, condimentum quam id, luctus quam.
+                <div class="comments-footer">
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-<?php }?>
+  <?php }?>
   </div>
 </div>
+
     <div class="footer">
       <footer><center>copyright information</center></footer>
     </div>
 
-
+</div>
 
 </body>
 </html>
