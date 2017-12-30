@@ -50,6 +50,7 @@ if (count($errors)==0) :{
     mysqli_query($db, $sql);
     $_SESSION['email'] = $email;
     $_SESSION['firstname'] = $firstname;
+    $_SESSION['surname'] = $surname;
     $_SESSION['logged_in'] = true;
     $_SESSION['success'] = "You are now logged in.";
 

@@ -10,9 +10,11 @@ if ($_SESSION['logged_in'] = true) {
   $firstname = $_SESSION['firstname'];
   $surname = $_SESSION['surname'];
   $email = $_SESSION['email'];
+
 }
 
 ?>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -27,7 +29,6 @@ if ($_SESSION['logged_in'] = true) {
   </script>
   <style>
 
-
     .affix {
         top: 0;
         width: 100%;
@@ -41,7 +42,7 @@ if ($_SESSION['logged_in'] = true) {
       background-color: rgba(100, 100, 100, 0);;
       color: white;
       padding-top: 14px;
-      font-size: 16px;
+      font-size: 15px;
       border: none;
       cursor: pointer;
     }
@@ -80,6 +81,9 @@ if ($_SESSION['logged_in'] = true) {
       background-color: rgba(100, 100, 100, 0);;
     }
 
+    .modal{
+      top:5vh;
+    }
 
     .modal-dialog{
       width:80%;
@@ -98,7 +102,8 @@ if ($_SESSION['logged_in'] = true) {
   .carousel-inner img {
       width: 100%;
       margin: auto;
-      min-height:200px;
+      min-height:380px;
+      max-height:380px;
   }
 
     .box{
@@ -178,8 +183,8 @@ if ($_SESSION['logged_in'] = true) {
      color: #1A5276;
    }
    .specs{
-     max-height: 430px;
-     min-height: 430px;
+     max-height: 70vh;
+     min-height: 70vh;
    }
    .img-footer{
      line-height: 1.5;
@@ -201,7 +206,7 @@ if ($_SESSION['logged_in'] = true) {
    .img-footer red {
      font-weight: bold;
      color: red;
-     font-size: 16px;
+     font-size: 15px;
    }
    .close{
      color:blue;
@@ -227,19 +232,23 @@ if ($_SESSION['logged_in'] = true) {
       color: #fff;
    }
    .comments-footer{
-     border: 2px solid #1A5276;
-     max-height: 150px;
-     min-height: 150px;
+     text-align: left;
+     overflow-y: scroll;
+     max-height: 250px;
+     min-height: 250px;
    }
    .nav{
      margin-left: 0;
    }
   </style>
 </head>
-<body>
+<body background="">
 <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="navbar-header">
+      <a class="navbar-brand" href="#">Athena</a>
+    </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Catalogue</a></li>
         <li><a href="#">My Books</a></li>
@@ -248,9 +257,9 @@ if ($_SESSION['logged_in'] = true) {
 
             <div class="dropdown" style="float:right;">
               <font color="white" >Hey
-              <button class="dropbtn"><b><?php echo $firstname; ?></font></button>
+              <button class="dropbtn"><b><?php echo $firstname; ?></b></font></button>
               <div class="dropdown-content">
-                <?php echo $firstname."&nbsp;".$surname; ?>
+                <?php echo $firstname.$surname; ?>
                 <br>
                 <?php echo $email; ?>
                 <br><br>
@@ -267,20 +276,29 @@ if ($_SESSION['logged_in'] = true) {
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
     </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="https://placehold.it/1200x400?text=IMAGE" alt="Image">
+        <img src="images/bg.jpg" alt="Image">
         <div class="carousel-caption">
           <h3>New book added</h3>
           <p>Submit borrow request now!</p>
         </div>
       </div>
 
+        <div class="item">
+          <img src="images/bg3.jpg" alt="Image">
+          <div class="carousel-caption">
+            <h3>New book added</h3>
+            <p>Submit borrow request now!</p>
+          </div>
+        </div>
+
       <div class="item">
-        <img src="https://placehold.it/1200x400?text=Another Image Maybe" alt="Image">
+        <img src="images/bg5.jpg" alt="Image">
         <div class="carousel-caption">
           <h3>New feauture added!</h3>
           <p>(Yay)</p>
@@ -318,9 +336,9 @@ if ($_SESSION['logged_in'] = true) {
         </div>
           <div class="panel-footer-bottom">
           <?php if($book['availability']==1): ?>
-          <green> Available! </green>
+          <green> Available </green>
           <?php else : ?>
-          <red> Not Available!</red>
+          <red> Not Available</red>
         <?php endif; ?>
           </div>
       </div>
@@ -380,6 +398,7 @@ if ($_SESSION['logged_in'] = true) {
 
                 $sql1 = "SELECT * FROM author WHERE name='".$book['author']."' ";
                 $entry1 = $db ->query($sql1);
+                if($entry1->num_rows !==0):
                 $author = mysqli_fetch_assoc($entry1);
                 ?>
 
@@ -388,13 +407,65 @@ if ($_SESSION['logged_in'] = true) {
                 <p align=left><?= $author['description']; ?>
             </div>
           </div>
+        <?php endif; ?>
         </div>
             </div>
+
               </div>
+              <hr>
               <div class="comments">
-                <hr>
-                <h3 align=left>Comments</h3>
+
+                <h3 align=left>Reviews and Comments</h3>
+                <br>
                 <div class="comments-footer">
+
+                  <?php
+                  $sql2 = "SELECT * FROM comments WHERE book_id= '$id'";
+                  $entry2 = $db ->query($sql2);
+                  if($entry2->num_rows !==0):{
+                  while($comment = mysqli_fetch_assoc($entry2)) {
+                  ?>
+
+                  <div class="media">
+                  <div class="media-left">
+                    <img src="img_avatar1.png" class="media-object" style="width:45px">
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading"><?= $comment['author']; ?> <small><i>Posted on February 19, 2016</i></small></h4>
+                    <p><?= $comment['comment_body']; ?></p>
+                  </div>
+                </div>
+              <?php }
+                    }
+                    endif; ?>
+                <br>
+
+
+                  <form action="" method=get>
+                    <div class="media">
+                      <div class="media-left">
+                        <img src="img_avatar5.png" class="media-object" style="width:45px">
+                      </div>
+                      <div class="media-body">
+                        <textarea cols=130 rows=3 name="<?= $id; ?>" id="comment<?= $id; ?>txt">Comment here...</textarea>
+                      </div>
+                      <br><p align=right>
+                      <input type="submit" name="add_comm" value="Comment">
+                    </p>
+                    </div>
+                  </form>
+                    <script>
+                    $('#comment<?= $id; ?>txt').focus(function() {
+                        if ( this.value == 'Comment here...' ) {
+                            this.value = '';
+                        }
+                    })
+                    .blur(function() {
+                        if ( this.value == '' ) {
+                            this.value = 'Comment here...';
+                        }
+                    });
+                    </script>
 
                 </div>
               </div>
@@ -403,14 +474,38 @@ if ($_SESSION['logged_in'] = true) {
         </div>
       </div>
   <?php }?>
+
   </div>
 </div>
 
     <div class="footer">
       <footer><center>copyright information</center></footer>
     </div>
+    <?php
+    if (isset($_GET['add_comm'])) :{
+      if($_SESSION['logged_in'] = true):{
+        $user_id = $_SESSION['id'];
+        $author = $_SESSION['firstname'].$_SESSION['surname'];
+        for ($i=1; $i < 9; $i++) {
+        if (isset ($_GET[$i])):{
+        $comment = $_GET[$i];
+        $book_id = $i;
 
-</div>
+                  $user_id = $_SESSION['id'];
+                  $author = $_SESSION['firstname'].$_SESSION['surname'];
+
+
+                  $sql = "INSERT INTO comments(user_id, author, comment_body, book_id) VALUES ('$user_id','$author','$comment', '$book_id')";
+                  mysqli_query($db, $sql);
+                  $page = 'index.php';
+        }
+        endif;
+        }
+      }
+    endif;
+      }
+    endif;
+      ?>
 
 </body>
 </html>

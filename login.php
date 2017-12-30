@@ -26,9 +26,10 @@
           $user = $result->fetch_assoc();
           if (password_verify($_POST['password'], $user['password']))
           {
+          $_SESSION['id'] = $user['id'];
           $_SESSION['email'] = $user['email'];
           $_SESSION['firstname'] = $user['firstname'];
-          $_SESSION['surname'] = $user['surname'];
+          $_SESSION['surname'] = "&nbsp;".$user['surname'];
           $_SESSION['logged_in'] = true;
           $_SESSION['success'] = "You are now logged in.";
 
