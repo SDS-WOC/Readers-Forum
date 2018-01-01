@@ -10,6 +10,7 @@ $surname = ($_POST['surname']);
 $email = ($_POST['email']);
 $password_1 = ($_POST['password_1']);
 $password_2 = ($_POST['password_2']);
+$gender = ($_POST['gender']);
 
 
 if(empty($firstname)) : {
@@ -22,6 +23,10 @@ if(empty($surname)):{
 endif;
 if(empty($email)):{
   array_push($errors, "Email is required");
+}
+endif;
+if(empty($gender)):{
+  array_push($errors, "Gender is required");
 }
 endif;
 if(empty($password_1)):{
@@ -44,14 +49,21 @@ endif;
 
 if (count($errors)==0) :{
      $password = password_hash($password_1, PASSWORD_BCRYPT);
-    $sql = "INSERT INTO registration(firstname, surname, email, password )
-                VALUES('$firstname', '$surname','$email', '$password')";
+    $sql = "INSERT INTO registration(firstname, surname, email, password, gender )
+                VALUES('$firstname', '$surname','$email', '$password', '$gender')";
 
     mysqli_query($db, $sql);
     $_SESSION['email'] = $email;
     $_SESSION['firstname'] = $firstname;
-    $_SESSION['surname'] = $surname;
+    $_SESSION['surname'] = "&nbsp;".$surname;
+    $_SESSION['gender'] = $gender;
     $_SESSION['logged_in'] = true;
+    if($gender == "M"){
+      $_SESSION['dp'] = "male.jpg";
+    }
+    elseif($gender == "F"){
+      $_SESSION['dp'] = "female.jpg";
+    }
     $_SESSION['success'] = "You are now logged in.";
 
     header('location: index.php');

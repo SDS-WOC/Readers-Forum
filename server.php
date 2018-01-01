@@ -19,6 +19,4 @@ $errors = array();
   }
   endif;
 
-
-
  ?>

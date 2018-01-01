@@ -10,32 +10,42 @@
   </script>
   <style>
   .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
+      margin-top: 5vh;
+      background-color: black;
+      height: 70%;
+      vertical-align: middle;
+      color: #FEF9E7;
+      border: solid 1px #FEF9E7;
+      border-radius: 3%;
 
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
+    }
+    input[type="text"], input[type="password"] {
+
+      background-color : #FEF9E7;
+      color: black;
+    }
+    .footer {
+      margin-top: 90vh;
       text-align: center;
     }
-    .jumbotron {
-        margin-bottom: 0;
+    img{
+      vertical-align: bottom;
+    }
+    .container-fluid{
+        background-color: black;
+            color: #FEF9E7;
+    }
+    button{
+      background-color : black;
+      color: #FEF9E7;
+    }
 
-      }
 </style>
 
 <title>Athena : Login</title>
 </head>
-<body>
+<body bgcolor="black">
 
-  <div class="jumbotron">
-    <div class="container text-center">
-      <h1>Athena</h1>
-      <p>Bookshelf IITR Online Portal</p>
-    </div>
-  </div>
   <div class="container-fluid">
 
      <div class="col-sm-10">
@@ -51,24 +61,22 @@
 
          <div class="carousel-inner">
            <div class="item active">
-             <img src="images/screen_1.png" alt="Screen 1">
+             <img src="images/screen1.jpg" alt="Screen 1">
            </div>
 
            <div class="item">
-             <img src="images/screen_1.png" alt="Screen 2">
+             <img src="images/screen2.jpg" alt="Screen 2">
            </div>
 
            <div class="item">
-             <img src="images/screen_1.png" alt="Screen 3">
+             <img src="images/screen3.jpg" alt="Screen 3">
            </div>
          </div>
 
 
        </div>
        </div>
-
-     <div class="col-sm-2 sidenav">
-
+     <div class="col-sm-2 sidenav align-middle">
   <h2> Login</h2>
   <form method="post" action="homepage.php">
 
@@ -87,11 +95,9 @@
   </form>
   Not yet a member? <a href="register-form.php">Register here</a>
 </div>
-
+<div class="footer">
+  <p align=center> Copyright Information</p>
 </div>
-<footer class="container-fluid">
-  <p>Copyright information</p>
-</footer>
-
+</div>
 </body>
 </html>

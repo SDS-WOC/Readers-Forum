@@ -10,6 +10,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
   </script>
 </head>
+<style>
+
+  .alert{
+    background-color: black;
+    border-color: #FEF9E7;
+  }
+  </style>
 <body>
 <?php
 

@@ -10,7 +10,7 @@ if ($_SESSION['logged_in'] = true) {
   $firstname = $_SESSION['firstname'];
   $surname = $_SESSION['surname'];
   $email = $_SESSION['email'];
-
+  $dp = $_SESSION['dp'];
 }
 
 ?>
@@ -37,6 +37,10 @@ if ($_SESSION['logged_in'] = true) {
 
     .affix + .container-fluid {
         padding-top: 70px;
+    }
+    .container-fluid {
+        background: url('images/index5.jpg');
+      background-repeat: no-repeat;
     }
     .dropbtn {
       background-color: rgba(100, 100, 100, 0);;
@@ -90,8 +94,17 @@ if ($_SESSION['logged_in'] = true) {
     }
 
     .navbar {
+      background: url('images/index4.jpg');
       margin-bottom: 0;
       border-radius: 0;
+    }
+    .heading{
+      color: #FEF9E7;
+      font-family: "papyrus";
+      font-size: 38px;
+      padding-top: 3vh;
+      padding-bottom: 3vh;
+
     }
 
     footer {
@@ -107,20 +120,25 @@ if ($_SESSION['logged_in'] = true) {
   }
 
     .box{
-
       border-left: 1px solid #4A235A;
     }
 
     .panel {
-       border: 1px solid #f4511e;
-       border-radius:0 ;
+       background: black;
+       opacity: 0.9;
+       border: 1px solid white;
+       border-radius: 0 ;
        transition: box-shadow 0.5s;
-       max-height: 75vh;
-       min-height: 75vh;
+       max-height: 52vh;
+       min-height: 52vh;
    }
    .panel:hover {
+        opacity: 1;
         cursor: pointer;
-       box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+        box-shadow: 5px 0px 40px #FEF9E7;
+   }
+   .container-fluid a:hover{
+     text-decoration: none;
    }
    .panel-heading {
        color: #fff ;
@@ -133,46 +151,38 @@ if ($_SESSION['logged_in'] = true) {
        border-bottom-right-radius: 0px;
    }
    .panel-footer {
-
-       max-height: 19vh;
-       min-height: 19vh;
-       background-color: white ;
+       max-height: 17vh;
+       min-height: 17vh;
+       background-color: black ;
    }
    .panel-footer-bottom {
-       background-color: white ;
+       background-color: black ;
    }
    .col-sm-3 a:hover{
      text-decoration: none;
    }
    .panel-footer h3 {
-       font-size: 22px;
+       font-family: "futura";
+       font-size: 16px;
+        color: #FEF9E7;
    }
    .panel-footer h4 {
-       color: #aaa;
-       font-size: 14px;
+       color: #CD5C5C;
+       font-size: 12px;
 
    }
-   .panel-footer-bottom green {
+   .panel-body red {
+     background-color: #fefbd8;
+     align-items: center;
      border-radius: 5px;
-     padding-left:5px;
-     padding-right: 5px;
-     padding-top: 5px;
-     padding-bottom: 5px;
-     border: 1px solid green;
-     color: green;
-     font-size: 14px;
-   }
-   .panel-footer-bottom red {
-     border-radius: 5px;
-     padding-left:5px;
-     padding-right: 5px;
-     padding-top: 5px;
-     padding-bottom: 5px;
+     padding: 1vh;
+     padding-left: 4vh;
+     padding-right: 4vh;
      border: 1px solid red;
      color: red;
+     font-weight: bold;
      font-size: 14px;
    }
-
    .specs h3{
      color: #4A235A;
    }
@@ -240,14 +250,20 @@ if ($_SESSION['logged_in'] = true) {
    .nav{
      margin-left: 0;
    }
+   .profile{
+     line-height: 2.25;
+   }
+   .dp img{
+     max-height: 10vh;
+     max-width: 10vh;
+   }
   </style>
 </head>
-<body background="">
+<body>
 <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
-  <div class="container-fluid">
     <div class="collapse navbar-collapse" id="myNavbar">
       <div class="navbar-header">
-      <a class="navbar-brand" href="#">Athena</a>
+      <a class="navbar-brand"><font color="#FEF9E7">Athena</font></a>
     </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.php">Catalogue</a></li>
@@ -259,16 +275,22 @@ if ($_SESSION['logged_in'] = true) {
               <font color="white" >Hey
               <button class="dropbtn"><b><?php echo $firstname; ?></b></font></button>
               <div class="dropdown-content">
-                <?php echo $firstname.$surname; ?>
+                <div class="row">
+                  <div class="col-sm-8 profile">
+                <b><?php echo $firstname."".$surname; ?></b>
                 <br>
                 <?php echo $email; ?>
-                <br><br>
+                  </div>
+                  <div class="col-sm-4 dp">
+                <img src="images/<?php echo $dp; ?>">
+                  </div>
+                </div>
+                <br>
               <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
 
               </div>
             </div>
     </div>
-  </div>
 </nav>
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -300,7 +322,7 @@ if ($_SESSION['logged_in'] = true) {
       <div class="item">
         <img src="images/bg5.jpg" alt="Image">
         <div class="carousel-caption">
-          <h3>New feauture added!</h3>
+          <h3>New feature added!</h3>
           <p>(Yay)</p>
         </div>
       </div>
@@ -316,34 +338,33 @@ if ($_SESSION['logged_in'] = true) {
       <span class="sr-only">Next</span>
     </a>
 </div>
-<div class="container text-center">
-  <h3>Catalogue</h3><br>
+<div class="container-fluid">
+<div class="container heading">
+  Catalogue<br>
 </div>
   <?php while($book = mysqli_fetch_assoc($entry)) {
       $id = $book['id'];?>
         <div class="container text-center">
       <div class="row">
-      <div class="col-sm-3 row-xs-12">
+      <div class="col-sm-2 row-xs-12">
       <a data-toggle="modal" data-target="#book-<?= $id ; ?>">
       <div class="panel panel-default text-center">
 
-        <div class="panel-body">
+        <div class="panel-body" style="position:relative">
           <center><img src="<?= $book['image'] ; ?>" class="img-responsive" width=80% alt="<?= $book['title']  ; ?>"></center>
+          <?php if($book['availability']==0): ?>
+          <div style="position:absolute; top:15vh">
+          <red> IN ROTATION</red>
+          </div>
+          <?php endif; ?>
         </div>
         <div class="panel-footer">
           <h3><?= $book['title'] ?></h3>
           <h4>by <?= $book['author'] ?></h4>
         </div>
-          <div class="panel-footer-bottom">
-          <?php if($book['availability']==1): ?>
-          <green> Available </green>
-          <?php else : ?>
-          <red> Not Available</red>
-        <?php endif; ?>
-          </div>
       </div>
-    </div>
   </a>
+      </div>
 
     <div class="modal fade" id="book-<?= $book['id']; ?>" role="dialog">
       <div class="modal-dialog">
@@ -428,7 +449,12 @@ if ($_SESSION['logged_in'] = true) {
 
                   <div class="media">
                   <div class="media-left">
-                    <img src="img_avatar1.png" class="media-object" style="width:45px">
+                    <?php if($comment['author-gender'] == "M") { ?>
+                    <img src="images/male.jpg" class="media-object" style="width:45px">
+                    <?php }
+                      else { ?>
+                    <img src="images/female.jpg" class="media-object" style="width:45px">
+                  <?php } ?>
                   </div>
                   <div class="media-body">
                     <h4 class="media-heading"><?= $comment['author']; ?> <small><i>Posted on February 19, 2016</i></small></h4>
@@ -444,7 +470,7 @@ if ($_SESSION['logged_in'] = true) {
                   <form action="" method=get>
                     <div class="media">
                       <div class="media-left">
-                        <img src="img_avatar5.png" class="media-object" style="width:45px">
+                        <img src="images/<?= $dp; ?>" class="media-object" style="width:45px">
                       </div>
                       <div class="media-body">
                         <textarea cols=130 rows=3 name="<?= $id; ?>" id="comment<?= $id; ?>txt">Comment here...</textarea>
@@ -477,25 +503,20 @@ if ($_SESSION['logged_in'] = true) {
 
   </div>
 </div>
+</div
 
-    <div class="footer">
-      <footer><center>copyright information</center></footer>
-    </div>
     <?php
     if (isset($_GET['add_comm'])) :{
       if($_SESSION['logged_in'] = true):{
         $user_id = $_SESSION['id'];
         $author = $_SESSION['firstname'].$_SESSION['surname'];
+        $gender = $_SESSION['gender'];
         for ($i=1; $i < 9; $i++) {
         if (isset ($_GET[$i])):{
         $comment = $_GET[$i];
         $book_id = $i;
 
-                  $user_id = $_SESSION['id'];
-                  $author = $_SESSION['firstname'].$_SESSION['surname'];
-
-
-                  $sql = "INSERT INTO comments(user_id, author, comment_body, book_id) VALUES ('$user_id','$author','$comment', '$book_id')";
+                  $sql = "INSERT INTO comments(user_id, author, author-gender, comment_body, book_id) VALUES ('$user_id','$author','$gender','$comment', '$book_id')";
                   mysqli_query($db, $sql);
                   $page = 'index.php';
         }
