@@ -93,7 +93,7 @@
     <br><br>
       <button type="submit" name="login">Login</button>
   </form>
-  Not yet a member? <a href="register-form.php">Register here</a>
+  Not a member yet? <a href="register-form.php">Join now</a>
 </div>
 <div class="footer">
   <p align=center> Copyright Information</p>
